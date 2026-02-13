@@ -8,7 +8,9 @@
 body{
   margin:0;
   font-family:Arial, sans-serif;
-  background:linear-gradient(135deg,#ff0844,#ff5e9c);
+  background:linear-gradient(135deg,#ff0844,#ff5e9c,#ff9a9e);
+  background-size:400% 400%;
+  animation:gradientMove 8s ease infinite;
   overflow:hidden;
   display:flex;
   justify-content:center;
@@ -16,6 +18,12 @@ body{
   height:100vh;
   color:white;
   text-align:center;
+}
+
+@keyframes gradientMove{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
 }
 
 .page{
@@ -33,7 +41,7 @@ body{
 }
 
 h1{
-  font-size:2.5em;
+  font-size:2em;
 }
 
 button{
@@ -63,7 +71,7 @@ button{
 }
 
 .love-text{
-  font-size:3.2em;
+  font-size:3em;
   font-weight:bold;
   animation:glow 1s infinite alternate;
 }
@@ -82,13 +90,12 @@ button{
 
 .heart{
   position:absolute;
-  font-size:20px;
   animation:float 6s linear infinite;
 }
 
 @keyframes float{
-  from{transform:translateY(100vh);}
-  to{transform:translateY(-10vh);}
+  from{transform:translateY(100vh) rotate(0deg);}
+  to{transform:translateY(-10vh) rotate(360deg);}
 }
 </style>
 </head>
@@ -110,11 +117,11 @@ button{
 <div class="page" id="page2">
   <h1>
   Escúchame bien…<br><br>
-  Me apresuro porque cuando algo es valioso,  
+  Me apresuro porque cuando algo es valioso,
   no se deja escapar.<br><br>
-  Tú eres fuerza, ternura, carácter…  
+  Tú eres fuerza, ternura, carácter…
   y esa mezcla perfecta que me vuelve loco.<br><br>
-  No quiero medias tintas contigo.  
+  No quiero medias tintas contigo.
   Te quiero completa, real, intensa.
   </h1>
 
@@ -127,7 +134,8 @@ button{
   <h1 style="margin-top:25px;">
   Esta noche paso por ti.<br>
   20:00 hrs.<br><br>
-  Prepárate… porque voy decidido. 🔥
+  Prepárate… porque voy decidido 🔥<br><br>
+  Y no pienso soltarte nunca. 💍
   </h1>
 </div>
 
@@ -135,27 +143,45 @@ button{
 function nextPage(num){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page'+num).classList.add('active');
+
+  if(num===3){
+    explosionCorazones();
+  }
 }
 
 function moverBoton(btn){
-  const x=Math.random()*(window.innerWidth-100);
-  const y=Math.random()*(window.innerHeight-50);
+  const x=Math.random()*(window.innerWidth-120);
+  const y=Math.random()*(window.innerHeight-60);
   btn.style.left=x+"px";
   btn.style.top=y+"px";
 }
 
 function createHearts(){
   const container=document.getElementById('hearts');
-  for(let i=0;i<25;i++){
+  for(let i=0;i<40;i++){
     const heart=document.createElement('div');
     heart.classList.add('heart');
     heart.innerHTML="💖";
     heart.style.left=Math.random()*100+"vw";
     heart.style.animationDuration=(Math.random()*3+3)+"s";
-    heart.style.fontSize=(Math.random()*20+15)+"px";
+    heart.style.fontSize=(Math.random()*25+15)+"px";
     container.appendChild(heart);
   }
 }
+
+function explosionCorazones(){
+  for(let i=0;i<30;i++){
+    const heart=document.createElement('div');
+    heart.innerHTML="💘";
+    heart.style.position="absolute";
+    heart.style.left="50%";
+    heart.style.top="50%";
+    heart.style.fontSize="30px";
+    heart.style.transform=`translate(${Math.random()*400-200}px, ${Math.random()*400-200}px)`;
+    document.body.appendChild(heart);
+  }
+}
+
 createHearts();
 </script>
 
